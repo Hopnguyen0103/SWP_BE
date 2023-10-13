@@ -84,6 +84,6 @@ public class OrderController {
     @PostMapping("/cancelOrder")
     public ResponseEntity<Object> cancelOrder(@RequestParam int orderId) throws Exception {
         if(OrderRepository.cancelOrder(orderId)) return ResponseEntity.ok().build();
-        else return ResponseEntity.badRequest().build();
+        else return ResponseEntity.badRequest().build()
     }
 }
