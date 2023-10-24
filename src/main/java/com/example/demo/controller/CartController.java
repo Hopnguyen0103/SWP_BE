@@ -25,7 +25,12 @@ public class CartController {
         if(cart.getCartId() != 0) return ResponseEntity.ok().body(cart);
         else return ResponseEntity.badRequest().build();
     }
-
+    @GetMapping("/getCartAndCartItem")
+    public ResponseEntity<Object> getCartAndCartItem() throws Exception {
+        List<CartAndCartItem> cartAndCartItem = CartRepository.getCartAndCartItem();
+        if(cartAndCartItem.size()>0) return ResponseEntity.ok().body(cartAndCartItem);
+        else return ResponseEntity.badRequest().build();
+    }
     @GetMapping("/getCartByUserId")
     public ResponseEntity<Object> getCartByUserId(@RequestParam int userId) throws Exception {
         Cart cart = CartRepository.getCartByUserId(userId);
@@ -51,12 +56,7 @@ public class CartController {
         else return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/getCartAndCartItem")
-    public ResponseEntity<Object> getCartAndCartItem() throws Exception {
-        List<CartAndCartItem> cartAndCartItem = CartRepository.getCartAndCartItem();
-        if(cartAndCartItem.size()>0) return ResponseEntity.ok().body(cartAndCartItem);
-        else return ResponseEntity.badRequest().build();
-    }
+
 
     @GetMapping("/getCartProductByUserUid")
     public ResponseEntity<Object> getCartProductByUserUid(@RequestParam String userUid) throws Exception {
@@ -64,4 +64,6 @@ public class CartController {
         if(cartAndCartItemAndProduct != null) return ResponseEntity.ok().body(cartAndCartItemAndProduct);
         else return ResponseEntity.badRequest().build();
     }
+
+
 }
