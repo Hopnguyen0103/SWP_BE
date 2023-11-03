@@ -23,15 +23,7 @@ public class UserController {
         else return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/getUserByUserId")
-    public ResponseEntity<Object> getUserByUserId(@RequestParam int userId) throws Exception {
-        User user = UserRepository.getUserByUserId(userId);
-        if (user.getUserId() != 0) {
-            return ResponseEntity.ok().body(user);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
+
 
     @GetMapping("/getUserByUserUid")
     public ResponseEntity<Object> getUserByUserUid(@RequestParam String userUid) throws Exception {
@@ -62,7 +54,8 @@ public class UserController {
 
     @DeleteMapping("/deleteUser")
     public ResponseEntity<Object> deleteUser(@RequestParam int[] userId) throws Exception {
-        if(UserRepository.deleteUser(userId)) return ResponseEntity.ok().build();
+        if(UserRepository.deleteUser(userId))
+            return ResponseEntity.ok().build();
         else return ResponseEntity.badRequest().build();
     }
 
@@ -70,5 +63,15 @@ public class UserController {
     public ResponseEntity<Object> updateUser(@RequestBody User user) throws Exception {
         if(UserRepository.updateUser(user)) return ResponseEntity.ok().build();
         else return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/getUserByUserId")
+    public ResponseEntity<Object> getUserByUserId(@RequestParam int userId) throws Exception {
+        User user = UserRepository.getUserByUserId(userId);
+        if (user.getUserId() != 0) {
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
