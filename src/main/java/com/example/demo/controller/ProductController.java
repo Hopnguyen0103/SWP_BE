@@ -13,12 +13,7 @@ import java.util.List;
 @RequestMapping("/api/product")
 public class ProductController {
     //Get all product
-    @GetMapping("/allProduct")
-    public ResponseEntity<Object> getAllProduct() throws Exception {
-        List<Product> productList = ProductRepository.getAllProduct();
-        if(productList.size()>0) return ResponseEntity.ok().body(productList);
-        else return ResponseEntity.badRequest().build();
-    }
+
 
     @GetMapping("/searchByName")
     public ResponseEntity<Object> searchByName(@RequestParam String productName) throws Exception {
