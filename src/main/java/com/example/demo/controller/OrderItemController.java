@@ -37,16 +37,16 @@ public class OrderItemController {
         if(OrderItemRepository.deleteOrderItem(orderItemId)) return ResponseEntity.ok().build();
         else return ResponseEntity.badRequest().build();
     }
-
+    @PostMapping("/updateOrderItem")
+    public ResponseEntity<Object> updateOrderItem(@RequestBody OrderItem orderItem) throws Exception {
+        if(OrderItemRepository.updateOrderItem(orderItem)) return ResponseEntity.ok().build();
+        else return ResponseEntity.badRequest().build();
+    }
     @PostMapping("/createOrderItem")
     public ResponseEntity<Object> createOrderItem(@RequestBody OrderItem orderItem) throws Exception {
         if(OrderItemRepository.createOrderItem(orderItem)) return ResponseEntity.ok().build();
         else return ResponseEntity.badRequest().build();
     }
 
-    @PostMapping("/updateOrderItem")
-    public ResponseEntity<Object> updateOrderItem(@RequestBody OrderItem orderItem) throws Exception {
-        if(OrderItemRepository.updateOrderItem(orderItem)) return ResponseEntity.ok().build();
-        else return ResponseEntity.badRequest().build();
-    }
+
 }

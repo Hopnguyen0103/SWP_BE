@@ -71,7 +71,22 @@ public class OrderStatusRepository {
         }
         return false;
     }
-
+    public static boolean updateOrderStatus(OrderStatus orderStatus) throws Exception {
+        try {
+            Connection cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "UPDATE OrderStatus SET status = ? WHERE statusId = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, orderStatus.getStatusId());
+                pst.setString(2, orderStatus.getStatus());
+                int row = pst.executeUpdate();
+                if (row > 0) return true;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
     public static boolean deleteOrderStatus(int[] statusId) throws Exception {
         try {
             Connection cn = DBUtils.makeConnection();
@@ -92,20 +107,5 @@ public class OrderStatusRepository {
         return false;
     }
 
-    public static boolean updateOrderStatus(OrderStatus orderStatus) throws Exception {
-        try {
-            Connection cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "UPDATE OrderStatus SET status = ? WHERE statusId = ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setInt(1, orderStatus.getStatusId());
-                pst.setString(2, orderStatus.getStatus());
-                int row = pst.executeUpdate();
-                if (row > 0) return true;
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
+
 }

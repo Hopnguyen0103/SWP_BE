@@ -65,32 +65,7 @@ public class OrderItemRepository {
         return orderItem;
     }
 
-    public static List<OrderItem> getOrderItemByOrderId(int orderId) throws Exception {
-        List<OrderItem> orderItemList = new ArrayList<>();
-        try {
-            Connection cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "Select * from OrderItems where orderId = ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setInt(1, orderId);
-                ResultSet table = pst.executeQuery();
-                if (table != null) {
-                    while (table.next()) {
-                        OrderItem orderItem = new OrderItem();
-                        orderItem.setOrderId(table.getInt("orderItemsId"));
-                        orderItem.setOrderId(table.getInt("orderId"));
-                        orderItem.setProductId(table.getInt("productId"));
-                        orderItem.setQuantity(table.getInt("quantity"));
-                        //orderItem.setTotalPrice(table.getInt("totalPrice"));
-                        orderItemList.add(orderItem);
-                    }
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return orderItemList;
-    }
+
 
     //ko quan trọng
     public static List<OrderItem> getOrderItemByIdAndProductId(int orderId, int productId) throws Exception {
@@ -181,5 +156,31 @@ public class OrderItemRepository {
             e.printStackTrace();
         }
         return false;
+    }
+    public static List<OrderItem> getOrderItemByOrderId(int orderId) throws Exception {
+        List<OrderItem> orderItemList = new ArrayList<>();
+        try {
+            Connection cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "Select * from OrderItems where orderId = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, orderId);
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        OrderItem orderItem = new OrderItem();
+                        orderItem.setOrderId(table.getInt("orderItemsId"));
+                        orderItem.setOrderId(table.getInt("orderId"));
+                        orderItem.setProductId(table.getInt("productId"));
+                        orderItem.setQuantity(table.getInt("quantity"));
+                        //orderItem.setTotalPrice(table.getInt("totalPrice"));
+                        orderItemList.add(orderItem);
+                    }
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return orderItemList;
     }
 }
