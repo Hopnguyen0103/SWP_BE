@@ -57,28 +57,7 @@ public class CartRepository {
         return cart;
     }
 
-    public static Cart getCartByUserId(int userId) throws Exception {
-        Cart cart = new Cart();
-        try{
-            Connection cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "SELECT * FROM Cart WHERE userId = ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setInt(1, userId);
-                ResultSet table = pst.executeQuery();
-                if (table != null) {
-                    while (table.next()) {
-                        cart.setCartId(table.getInt("cartId"));
-                        cart.setUserId(table.getInt("userId"));
-                    }
-                    return cart;
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     public static Cart getCartByUserUid(String userUid) throws Exception {
         Cart cart = null;
@@ -120,7 +99,28 @@ public class CartRepository {
         }
         return false;
     }
-
+    public static Cart getCartByUserId(int userId) throws Exception {
+        Cart cart = new Cart();
+        try{
+            Connection cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT * FROM Cart WHERE userId = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, userId);
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        cart.setCartId(table.getInt("cartId"));
+                        cart.setUserId(table.getInt("userId"));
+                    }
+                    return cart;
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
     //Delete Cart
     public static boolean deleteCart(int[] cartId) throws Exception {
         try {
