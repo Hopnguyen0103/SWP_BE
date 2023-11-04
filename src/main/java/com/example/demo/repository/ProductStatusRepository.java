@@ -29,7 +29,7 @@ public class ProductStatusRepository {
                     }
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return productStatusList;
@@ -51,7 +51,7 @@ public class ProductStatusRepository {
                     }
                 }
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return productStatus;
@@ -68,25 +68,7 @@ public class ProductStatusRepository {
                 int row = pst.executeUpdate();
                 if (row > 0) return true;
             }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    //Update Category
-    public static boolean updateProductStatus(ProductStatus productStatus) throws Exception {
-        try {
-            Connection cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "Update ProductStatus Set categoryName = ? WHERE categoryId = ?";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(1, productStatus.getStatus());
-                pst.setInt(2, productStatus.getStatusId());
-                int row = pst.executeUpdate();
-                if (row > 0) return true;
-            }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -107,9 +89,28 @@ public class ProductStatusRepository {
                 }
                 if (count > 0) return true;
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //Update Category
+    public static boolean updateProductStatus(ProductStatus productStatus) throws Exception {
+        try {
+            Connection cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "Update ProductStatus Set categoryName = ? WHERE categoryId = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, productStatus.getStatus());
+                pst.setInt(2, productStatus.getStatusId());
+                int row = pst.executeUpdate();
+                if (row > 0) return true;
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 }
+
