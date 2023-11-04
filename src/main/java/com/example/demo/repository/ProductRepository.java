@@ -14,6 +14,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ProductRepository {
+
+    //Get all product
+    public static List<Product> getAllProduct() throws Exception {
+        List<Product> productList = getProduct("select * from Product");
+        return productList;
+    }
+
     public static List<Product> getProduct(String sql) throws Exception {
         List<Product> productList = new ArrayList<>();
         try {
@@ -44,12 +51,6 @@ public class ProductRepository {
         return productList;
     }
 
-    //Get all product
-    public static List<Product> getAllProduct() throws Exception {
-        List<Product> productList = getProduct("select * from Product");
-        return productList;
-    }
-
     //Chuyển tiếng Việt ko dấu
     public static String unAccent(String s) {
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
@@ -76,13 +77,6 @@ public class ProductRepository {
         return result;
     }
 
-    //Filter product by id
-    public static Product getProductById(int productId) throws Exception {
-        String sql = "select * from Product where productId = '" + productId + "'";
-        Product product = getProduct(sql).get(0);
-        return product;
-    }
-
     public static int getCategoryId(String categoryName) throws Exception {
         List<Product> productList = new ArrayList<>();
         int categoryId = 0;
@@ -103,6 +97,13 @@ public class ProductRepository {
             e.printStackTrace();
         }
         return categoryId;
+    }
+
+    //Filter product by id
+    public static Product getProductById(int productId) throws Exception {
+        String sql = "select * from Product where productId = '" + productId + "'";
+        Product product = getProduct(sql).get(0);
+        return product;
     }
 
     //Multiple filter
@@ -191,9 +192,9 @@ public class ProductRepository {
         return false;
     }
 
-    //Delete existing product by id
-    public static boolean deleteProduct(int[] productId) throws Exception {
-        String sql = "Delete from Product where productId = ?";
+    //Delete product by changing product status to "xóa"
+    public static boolean deleteProductByChangingStatus(int[] productId) throws Exception {
+        String sql = "Update Product set statusId = 3 where productId = ?";
         try {
             Connection cn = DBUtils.makeConnection();
             int count = 0;
@@ -212,9 +213,9 @@ public class ProductRepository {
         return false;
     }
 
-    //Delete product by changing product status to "xóa"
-    public static boolean deleteProductByChangingStatus(int[] productId) throws Exception {
-        String sql = "Update Product set statusId = 3 where productId = ?";
+    //Delete existing product by id
+    public static boolean deleteProduct(int[] productId) throws Exception {
+        String sql = "Delete from Product where productId = ?";
         try {
             Connection cn = DBUtils.makeConnection();
             int count = 0;
