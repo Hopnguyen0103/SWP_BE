@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductStatus {
-    private int statusId;
+
     private String status;
+    private int statusId;
 }
