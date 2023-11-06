@@ -18,12 +18,7 @@ public class OrderItemController {
         else return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/getOrderItemById")
-    public ResponseEntity<Object> getOrderItemById(int orderItemId) throws Exception {
-        OrderItem orderItem = OrderItemRepository.getOrderItemById(orderItemId);
-        if(orderItem.getOrderId() != 0) return ResponseEntity.ok().body(orderItem);
-        else return ResponseEntity.badRequest().build();
-    }
+
 
     @GetMapping("/getOrderItemByOrderId")
     public ResponseEntity<Object> getOrderItemByOrderId(int orderId) throws Exception {
@@ -45,6 +40,12 @@ public class OrderItemController {
     @PostMapping("/createOrderItem")
     public ResponseEntity<Object> createOrderItem(@RequestBody OrderItem orderItem) throws Exception {
         if(OrderItemRepository.createOrderItem(orderItem)) return ResponseEntity.ok().build();
+        else return ResponseEntity.badRequest().build();
+    }
+    @GetMapping("/getOrderItemById")
+    public ResponseEntity<Object> getOrderItemById(int orderItemId) throws Exception {
+        OrderItem orderItem = OrderItemRepository.getOrderItemById(orderItemId);
+        if(orderItem.getOrderId() != 0) return ResponseEntity.ok().body(orderItem);
         else return ResponseEntity.badRequest().build();
     }
 
