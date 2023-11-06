@@ -26,18 +26,17 @@ public class OrderStatusController {
         if (orderStatus.getStatusId() != 0) return ResponseEntity.ok().body(orderStatus);
         else return ResponseEntity.badRequest().build();
     }
-
+    @PatchMapping("/updateOrderStatus")
+    public ResponseEntity<Object> updateOrderStatus(@RequestBody OrderStatus orderStatus) throws Exception {
+        if(OrderStatusRepository.updateOrderStatus(orderStatus)) return ResponseEntity.ok().build();
+        else return ResponseEntity.badRequest().build();
+    }
     @PostMapping("/createOrderStatus")
     public ResponseEntity<Object> createOrderStatus(@RequestBody OrderStatus orderStatus) throws Exception {
         if(OrderStatusRepository.createOrderStatus(orderStatus)) return ResponseEntity.ok().build();
         else return ResponseEntity.badRequest().build();
     }
 
-    @PatchMapping("/updateOrderStatus")
-    public ResponseEntity<Object> updateOrderStatus(@RequestBody OrderStatus orderStatus) throws Exception {
-        if(OrderStatusRepository.updateOrderStatus(orderStatus)) return ResponseEntity.ok().build();
-        else return ResponseEntity.badRequest().build();
-    }
 
     @DeleteMapping("/deletePayment")
     public ResponseEntity<Object> deleteOrderStatus(@RequestParam int[] statusId) throws Exception {

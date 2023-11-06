@@ -10,9 +10,10 @@ import java.util.Date;
 @Setter
 @ToString
 public class Order {
-    private int orderId;
+
     private int userId;
     private int paymentId;
+    private int orderId;
     private Date orderDate;
     private int deliveryId;
     private int statusId;
