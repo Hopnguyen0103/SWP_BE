@@ -41,10 +41,10 @@ public class UserController {
         try{
             UserRepository.createUser(user);
             int userId = UserRepository.getUserByUserUid(createUser.getUserUid()).getUserId();
-            Address address = new Address(userId, createUser.getAddress());
-            AddressRepository.createAddress(address);
             Cart cart = new Cart(0, userId);
             CartRepository.createCart(cart);
+            Address address = new Address(userId, createUser.getAddress());
+            AddressRepository.createAddress(address);
             return ResponseEntity.ok().body(createUser);
         } catch (SQLException e){
             e.printStackTrace();
