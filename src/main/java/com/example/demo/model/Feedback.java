@@ -14,8 +14,8 @@ import java.util.Date;
 
 public class Feedback {
     private int feedbackId;
-    private User  user;
     private Product product;
+    private User  user;
     private String content;
     private Date date;
 }

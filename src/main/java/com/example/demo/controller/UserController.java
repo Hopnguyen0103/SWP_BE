@@ -25,15 +25,6 @@ public class UserController {
 
 
 
-    @GetMapping("/getUserByUserUid")
-    public ResponseEntity<Object> getUserByUserUid(@RequestParam String userUid) throws Exception {
-        User user = UserRepository.getUserByUserUid(userUid);
-        if (user.getUserUid() != null) {
-            return ResponseEntity.ok().body(user);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-    }
 
     @PostMapping("/createUser")
     public ResponseEntity<Object> createUser (@RequestBody CreateUser createUser) throws Exception {
@@ -73,5 +64,16 @@ public class UserController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+
     }
+    @GetMapping("/getUserByUserUid")
+    public ResponseEntity<Object> getUserByUserUid(@RequestParam String userUid) throws Exception {
+        User user = UserRepository.getUserByUserUid(userUid);
+        if (user.getUserUid() != null) {
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

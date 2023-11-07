@@ -26,11 +26,7 @@ public class CartController {
         else return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/getCartByUserId")
-    public ResponseEntity<Object> getCartByUserId(@RequestParam int userId) throws Exception {
-        Cart cart = CartRepository.getCartByUserId(userId);
-        if(cart.getCartId() != 0) return ResponseEntity.ok().body(cart);
-        else return ResponseEntity.badRequest().build();
+
     }
     @GetMapping("/getCartByUserUid")
     public ResponseEntity<Object> getCartByUserUid(@RequestParam String userUid) throws Exception {
@@ -64,4 +60,9 @@ public class CartController {
         if(cartAndCartItemAndProduct != null) return ResponseEntity.ok().body(cartAndCartItemAndProduct);
         else return ResponseEntity.badRequest().build();
     }
+    @GetMapping("/getCartByUserId")
+    public ResponseEntity<Object> getCartByUserId(@RequestParam int userId) throws Exception {
+        Cart cart = CartRepository.getCartByUserId(userId);
+        if(cart.getCartId() != 0) return ResponseEntity.ok().body(cart);
+        else return ResponseEntity.badRequest().build();
 }

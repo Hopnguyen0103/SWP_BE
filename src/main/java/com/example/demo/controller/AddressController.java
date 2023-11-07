@@ -34,11 +34,6 @@ public class AddressController {
         else return ResponseEntity.badRequest().build();
     }
 
-    @PostMapping("/createAddress")
-    public ResponseEntity<Object> createAddress(@RequestBody Address address) throws Exception {
-        if (AddressRepository.createAddress(address)) return ResponseEntity.ok().build();
-        else return ResponseEntity.badRequest().build();
-    }
 
     @DeleteMapping("/deleteAddress")
     public ResponseEntity<Object> deleteAddress(@RequestParam int[] addressId) throws Exception {
@@ -51,4 +46,10 @@ public class AddressController {
         if (AddressRepository.updateAddress(address)) return ResponseEntity.ok().build();
         else return ResponseEntity.badRequest().build();
     }
+    @PostMapping("/createAddress")
+    public ResponseEntity<Object> createAddress(@RequestBody Address address) throws Exception {
+        if (AddressRepository.createAddress(address)) return ResponseEntity.ok().build();
+        else return ResponseEntity.badRequest().build();
+    }
+
 }

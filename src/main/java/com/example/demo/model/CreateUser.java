@@ -12,9 +12,10 @@ import java.util.Date;
 @Getter
 @Setter
 public class CreateUser {
-    private String address;
+
     private String userName;
     private String userUid;
     private String email;
+    private String address;
     private String phoneNumber;
 }
