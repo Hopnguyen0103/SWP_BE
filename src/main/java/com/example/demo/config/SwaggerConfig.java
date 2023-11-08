@@ -39,9 +39,9 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .apis(RequestHandlerSelectors.basePackage("com.example.demo"))
                 .build()
+                .apiInfo(apiInfo())
                 .securitySchemes(Arrays.asList(apiKey()))
                 .securityContexts(Arrays.asList(securityContext()))
-                .apiInfo(apiInfo())
                 .pathMapping("/")
                 .useDefaultResponseMessages(false)
                 .directModelSubstitute(LocalDate.class, String.class)
@@ -49,8 +49,8 @@ public class SwaggerConfig {
     }
     ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Swagger with Spring Boot + Security")
                 .version("1.0.0")
+                .title("Swagger with Spring Boot + Security")
                 .description("Your Description")
                 .contact(new Contact("Contact Name", "Contact_URL","contact@email.com"))
                 .build();
