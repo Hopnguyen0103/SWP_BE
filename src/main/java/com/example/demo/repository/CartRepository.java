@@ -12,28 +12,6 @@ import java.util.List;
 import static com.example.demo.repository.CartItemsRepository.*;
 
 public class CartRepository {
-    public static List<Cart> getAllCart() throws Exception {
-        List<Cart> cartList = new ArrayList<>();
-        try {
-            Connection cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "SELECT * FROM Cart";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                ResultSet table = pst.executeQuery();
-                if (table != null) {
-                    while (table.next()) {
-                        Cart cart = new Cart();
-                        cart.setCartId(table.getInt("cartId"));
-                        cart.setUserId(table.getInt("userId"));
-                        cartList.add(cart);
-                    }
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return cartList;
-    }
 
     public static Cart getCartByCartId(int cartId) throws Exception {
         Cart cart = new Cart();
@@ -56,7 +34,28 @@ public class CartRepository {
         }
         return cart;
     }
-
+    public static List<Cart> getAllCart() throws Exception {
+        List<Cart> cartList = new ArrayList<>();
+        try {
+            Connection cn = DBUtils.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT * FROM Cart";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        Cart cart = new Cart();
+                        cart.setCartId(table.getInt("cartId"));
+                        cart.setUserId(table.getInt("userId"));
+                        cartList.add(cart);
+                    }
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return cartList;
+    }
 
 
     public static Cart getCartByUserUid(String userUid) throws Exception {
