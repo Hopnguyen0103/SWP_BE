@@ -10,35 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderRepository {
-    public static List<Order> getAllOrder() throws Exception {
-        List<Order> orderList = new ArrayList<>();
-        try {
-            Connection cn = DBUtils.makeConnection();
-            if (cn != null) {
-                String sql = "Select * from Orders";
-                PreparedStatement pst = cn.prepareStatement(sql);
-                ResultSet table = pst.executeQuery();
-                if (table != null) {
-                    while (table.next()) {
-                        Order order = new Order();
-                        order.setOrderId(table.getInt("orderId"));
-                        order.setUserId(table.getInt("userId"));
-                        order.setPaymentId(table.getInt("paymentId"));
-                        order.setOrderDate(table.getDate("orderDate"));
-                        order.setDeliveryId(table.getInt("deliveryId"));
-                        order.setStatusId(table.getInt("statusId"));
-                        order.setNote(table.getString("note"));
-                        order.setTotalPayment(table.getInt("totalPayment"));
-                        order.setPaymentDate(table.getDate("paymentDate"));
-                        orderList.add(order);
-                    }
-                }
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return orderList;
-    }
 
     //Get Order by Id
     public static Order getOrderById(int orderId) throws Exception {
@@ -69,27 +40,36 @@ public class OrderRepository {
         }
         return order;
     }
-
-    //Delete existing Order by id
-    public static boolean deleteOrder(int[] orderId) throws Exception {
-        try{
-            String sql = "Delete from Orders where orderId = ?";
+    public static List<Order> getAllOrder() throws Exception {
+        List<Order> orderList = new ArrayList<>();
+        try {
             Connection cn = DBUtils.makeConnection();
-            int count = 0;
             if (cn != null) {
-                for (int i = 0; i<orderId.length; i++) {
-                    PreparedStatement pst = cn.prepareStatement(sql);
-                    pst.setInt(1, orderId[i]);
-                    int row = pst.executeUpdate();
-                    if (row > 0) count++;
+                String sql = "Select * from Orders";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                ResultSet table = pst.executeQuery();
+                if (table != null) {
+                    while (table.next()) {
+                        Order order = new Order();
+                        order.setOrderId(table.getInt("orderId"));
+                        order.setUserId(table.getInt("userId"));
+                        order.setPaymentId(table.getInt("paymentId"));
+                        order.setOrderDate(table.getDate("orderDate"));
+                        order.setDeliveryId(table.getInt("deliveryId"));
+                        order.setStatusId(table.getInt("statusId"));
+                        order.setNote(table.getString("note"));
+                        order.setTotalPayment(table.getInt("totalPayment"));
+                        order.setPaymentDate(table.getDate("paymentDate"));
+                        orderList.add(order);
+                    }
                 }
-                if (count > 0) return true;
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return false;
+        return orderList;
     }
+    //Delete existing Order by id
 
     public static boolean createOrder(Order order) throws Exception {
         try{
@@ -118,6 +98,25 @@ public class OrderRepository {
                 if (row > 0) {
                     return true;
                 }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean deleteOrder(int[] orderId) throws Exception {
+        try{
+            String sql = "Delete from Orders where orderId = ?";
+            Connection cn = DBUtils.makeConnection();
+            int count = 0;
+            if (cn != null) {
+                for (int i = 0; i<orderId.length; i++) {
+                    PreparedStatement pst = cn.prepareStatement(sql);
+                    pst.setInt(1, orderId[i]);
+                    int row = pst.executeUpdate();
+                    if (row > 0) count++;
+                }
+                if (count > 0) return true;
             }
         }catch (SQLException e){
             e.printStackTrace();
